@@ -1,5 +1,9 @@
 <script setup>
-const spin = () => alert('Hello')
+import AnimeCard from '@/components/AnimeCard.vue'
+
+const spin = () => {
+  console.log('Hello')
+}
 </script>
 
 <template>
@@ -25,16 +29,16 @@ const spin = () => alert('Hello')
         </div>
         <button 
         type="button"
-        class="cursor-pointer rounded-full border border-cyan-300/70 bg=cyan-400/20 px-6 py-3 text-base font-black tracking-wide text-cyan-100 hover:bg-cyan-400/30"
+        class="cursor-pointer rounded-full border border-cyan-300/70 bg-cyan-400/20 px-6 py-3 text-base font-black tracking-wide text-cyan-100 hover:bg-cyan-400/30"
         @click="spin"
         >
         Spin
       </button>
       </div>
       </div>
+      <AnimeCard loading />
     </section>
   </div>
-
   </div>
   </main>
 </template>
