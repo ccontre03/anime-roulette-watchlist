@@ -48,6 +48,10 @@ class="space-y-4"
   <p class="mt-2 text-sm text-red-100/90">{{ error }}</p>
 </div>
 
+<div
+v-else-if="anime">
+<pre>{{ anime }}</pre>
+</div>
 
 <div 
 v-else

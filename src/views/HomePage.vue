@@ -1,14 +1,10 @@
 <script setup>
-import {ref} from 'vue'
+import { } from 'vue'
 import AnimeCard from '@/components/AnimeCard.vue'
+import { useAnimeRoulette} from '@/composables/useAnimeRoulette'
 
-const loading = ref(false)
-const error = ref('')
+const {anime, loading, error, spin} = useAnimeRoulette()
 
-const spin = () => {
-  if (error.value.length > 0) error.value = ''
-  else error.value = 'Something is wrong'
-  }
 </script>
 
 <template>
@@ -44,6 +40,7 @@ const spin = () => {
       <AnimeCard 
       :loading="loading"
       :error="error"
+      :anime="anime"
       />
     </section>
   </div>
