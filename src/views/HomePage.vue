@@ -1,10 +1,23 @@
 <script setup>
-import { } from 'vue'
+import { computed } from 'vue'
 import AnimeCard from '@/components/AnimeCard.vue'
 import { useAnimeRoulette} from '@/composables/useAnimeRoulette'
 
-const {anime, loading, error, spin} = useAnimeRoulette()
+const {anime, loading, error, spin, cooldownLeft} = useAnimeRoulette()
 
+const spinDisabled = computed(() => loading.value || cooldownLeft.value > 0)
+
+const spinLabel = computed(() => {
+  if (loading.value) {
+    return 'Spinning...'
+  }
+
+  if (cooldownLeft.value > 0) {
+    return `Cooldown ${cooldownLeft.value}s`
+  }
+
+  return 'SPIN 🎰'
+})
 </script>
 
 <template>
@@ -13,29 +26,36 @@ const {anime, loading, error, spin} = useAnimeRoulette()
   >
   <div class="mx-auto max-w-7xl">
   <header class="mb-8">
-    <p class="text-xs front-semibold tracking-[0.3em] text-cyan-300/90 uppercase">Project #4</p>
-    <h1 class="mt-2 text-4xl font-black text-white sm:text-5xl">Anime Roulette Machine</h1>
-    <p class="mt-2 max-w-3xl text-sm text-slate-300 sm:text-base">SPin the reel, request a random anime from Jinkan with VueUse useFech, and learn how REST 
-      APIs signal rate limit with HTTP 429</p>
   </header>
 
   <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
     <section class="space-y-5">
-      <div class="rounded-3xl border border-slate-700/70 bg-slate-900/60 p-5 shadow-2xl shadow-slate-950/30 backdrop-blur-sm">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div 
+        class="rounded-3xl border border-slate-700/70 bg-slate-900/60 p-5 shadow-2xl shadow-slate-950/30 backdrop-blur-sm">
+      <div 
+        class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+        >
         <div>
-
           <h2 class="text-xl font-bold text-white">Roulette</h2>
-          <p class="text-sm text-slate-300">Pull the lever for your next random anime recommendation</p>
+          <p class="text-sm text-slate-300">
+            Pull the lever for your next random anime recommendation
+          </p>
         </div>
         <button 
         type="button"
-        class="cursor-pointer rounded-full border border-cyan-300/70 bg-cyan-400/20 px-6 py-3 text-base font-black tracking-wide text-cyan-100 hover:bg-cyan-400/30"
+        :disabled="spinDisabled"
+        class="cursor-pointer rounded-full border border-cyan-300/70 bg-cyan-400/20 px-6 py-3 text-base font-black tracking-wide text-cyan-100 hover:bg-cyan-400/30 disabled:cursor-not-allowed disabled:opacity-60"
         @click="spin"
         >
-        Spin
+        {{ spinLabel }}
       </button>
       </div>
+      <p 
+      v-if="cooldownLeft > 0"
+        class="mt-4 rounded-xl border border-amber-300/50 bg-amber-400/10 px-3 py-2 text-sm fount-semibold text-amber-100"
+        >
+          Rate-limited, Try again in {{ cooldownLeft }}s.
+      </p>
       </div>
       <AnimeCard 
       :loading="loading"
