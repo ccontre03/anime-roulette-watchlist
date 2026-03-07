@@ -79,4 +79,4 @@ const emit = defineEmits(['remove'])
       </li>
     </ul>
   </aside>
-</template>          
+</template>
