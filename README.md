@@ -67,3 +67,4 @@ npm run preview
 This template uses Tailwind CSS 4 with the new CSS-first configuration approach. Tailwind is integrated directly as a Vite plugin (`@tailwindcss/vite`), eliminating the need for separate `tailwind.config.js` and `postcss.config.js` files.
 
 To customize Tailwind, use CSS variables and the `@theme` directive in your CSS file. See the [Tailwind CSS documentation](https://tailwindcss.com/docs) for more details.
+"# Foodie" 
